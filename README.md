@@ -121,14 +121,7 @@ The engine only says which products match. The theme keeps the rest: it drops th
 
 ### Front events
 
-The cart dispatches DOM events a module's script can listen to on `window` (they bubble from the component), part of the theme's public surface like the hook points:
-
-| Event | When | `event.detail` |
-|---|---|---|
-| `addPseToCart` | A product is added from its page, a cart line goes up, a removed line is restored | `{pse: int, quantity: int}` |
-| `removePseFromCart` | A cart line is removed or goes down | `{pse: int, quantity: int}` |
-
-`pse` is the product sale element id, `quantity` the number of units added or removed by that change, not the new total of the line.
+The cart dispatches the `addPseToCart` and `removePseFromCart` DOM events, `{pse, quantity}`, that a module's script can listen to on `window`; they are part of the theme's public surface like the hook points. Which action sends which event, and what `quantity` counts, is described in [docs/stimulus-and-assets.md](docs/stimulus-and-assets.md#7-the-dom-events-the-cart-components-dispatch).
 
 ```js
 window.addEventListener('addPseToCart', (event) => {
