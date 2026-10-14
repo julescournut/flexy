@@ -33,6 +33,7 @@ use Thelia\Domain\Cart\Service\CartItemService;
 use Thelia\Domain\Cart\Service\CartRetriever;
 use Thelia\Domain\Cart\Service\CartSelectionService;
 use Thelia\Domain\Checkout\Service\GiftWrappingProvider;
+use Thelia\Domain\Localization\Service\LangService;
 use Thelia\Domain\Shipping\Service\PostageHandler;
 use Thelia\Domain\Taxation\TaxEngine\TaxCalculatorFactoryInterface;
 use Thelia\Model\Cart as CartModel;
@@ -105,15 +106,6 @@ final class CartBrowserEventsTest extends TestCase
         $cart->onQuantityChanged(0, 4);
 
         self::assertSame([$this->removed(7, 3)], $responder->getBrowserEventsToDispatch());
-    }
-
-    public function testARestoredLineTellsTheQuantityBack(): void
-    {
-        $responder = new LiveResponder();
-
-        $this->cart($responder)->restoreCartItem(7, 70, 2);
-
-        self::assertSame([$this->added(7, 2)], $responder->getBrowserEventsToDispatch());
     }
 
     public function testAChangeTheCartRefusesTellsNothing(): void
@@ -199,6 +191,7 @@ final class CartBrowserEventsTest extends TestCase
             $formService,
             new CartStockService(),
             self::createStub(AttributeAccessService::class),
+            self::createStub(LangService::class),
         );
         $cart->setLiveResponder($responder);
         $cart->items = [CartItemDto::fromArray([

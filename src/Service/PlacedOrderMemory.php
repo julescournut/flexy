@@ -17,7 +17,6 @@ namespace FlexyBundle\Service;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Thelia\Model\Order;
-use Thelia\Model\OrderQuery;
 
 /**
  * Whether the session in hand has just placed an order, and which tunnel it walked.
@@ -58,23 +57,6 @@ final readonly class PlacedOrderMemory
     }
 
     /**
-     * Whether the order this session just placed is paid, read again from the order: a
-     * gateway may have confirmed it between the placement and this question, while an order
-     * paid by cheque or transfer stays unpaid until the shop records the money. False when
-     * the session placed nothing, so that no page claims a payment it cannot vouch for.
-     */
-    public function isPaid(): bool
-    {
-        $orderId = $this->session()?->get(self::PLACED_ORDER_ID_KEY);
-
-        if (!is_numeric($orderId)) {
-            return false;
-        }
-
-        return OrderQuery::create()->findPk((int) $orderId)?->isPaid(false) ?? false;
-    }
-
-    /**
      * The codes of the steps the order was placed through, in tunnel order.
      *
      * Codes and not the drawn bar: a wording is read again from the configuration in the
@@ -96,6 +78,19 @@ final readonly class PlacedOrderMemory
     public function hasOne(): bool
     {
         return null !== $this->session()?->get(self::PLACED_ORDER_ID_KEY);
+    }
+
+    /**
+     * The order this session placed last, so that the confirmation page can show it.
+     *
+     * The id comes from the session, written at the placement: never from the address of
+     * the page, which anybody can type with any number in it.
+     */
+    public function placedOrderId(): ?int
+    {
+        $orderId = $this->session()?->get(self::PLACED_ORDER_ID_KEY);
+
+        return is_numeric($orderId) && (int) $orderId > 0 ? (int) $orderId : null;
     }
 
     /**

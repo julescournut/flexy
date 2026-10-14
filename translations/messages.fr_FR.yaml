@@ -269,6 +269,7 @@ Payment processing...: Paiement en cours...
 Thanks for your order !: Merci pour votre commande !
 for your order: pour votre commande
 Your payment has been confirmed: Votre paiement a été validé.
+Your order has been placed: Votre commande a bien été enregistrée.
 We'll do everything we can to send your order as quickly as possible!: Nous mettons tout en oeuvre pour envoyer votre commande au plus vite !
 Enter the code received by e-mail: Entrez le code reçu par mail
 resend_code: Pensez à vérifier vos spams, puis essayez de <a href='%h'>renvoyer le code</a>
@@ -611,3 +612,10 @@ Delivery date: Date de livraison
 Requested delivery: Livraison souhaitée
 The delivery date you picked is no longer available for this address. Please choose another one.: "La date de livraison choisie n'est plus disponible pour cette adresse. Veuillez en choisir une autre."
 "The carrier you chose does not deliver to this address: your delivery date was cleared. Please choose a delivery method again.": "Le transporteur choisi ne livre pas à cette adresse : votre date de livraison a été effacée. Veuillez choisir de nouveau un mode de livraison."
+Shipment %position% of %total%: Envoi %position% sur %total%
+Shipped on %date%: Expédié le %date%
+Shipped: Expédié
+Being prepared: En préparation
+Download the delivery note: Télécharger le bon de livraison
+Still to be shipped: Reste à expédier
+These items will leave in a later shipment.: Ces articles partiront dans un prochain envoi.
